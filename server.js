@@ -14,5 +14,4 @@ app.use("/", mainRoutes);
 app.use("/about", aboutRoutes)
 
 app.listen(process.env.PORT, () => {
-  console.log('Server is listening on port 8080');
-});
+  console.log(`Server is listening on port ${process.env.PORT}`); });

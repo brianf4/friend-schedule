@@ -1,24 +1,18 @@
 let express = require('express');
 let app = express();
+require('dotenv').config();
+
+// routes
+const mainRoutes = require('./routes/main');
+const aboutRoutes = require('./routes/about');
 
 // setting the view engine to ejs
 app.set('view engine', 'ejs');
 
-// use.render to load up an ejs view file
+// routes for which the server is listening
+app.use("/", mainRoutes);
+app.use("/about", aboutRoutes)
 
-// index.page
-app.get('/', (req, res) => {
-  res.render('pages/index.ejs');
+app.listen(process.env.PORT, () => {
+  console.log('Server is listening on port 8080');
 });
-
-//about page
-app.get('/about', (req, res) => {
-  res.render('pages/about');
-});
-
-app.get('/contact', (req, res) => {
-  res.render('pages/contact');
-});
-
-app.listen(8080);
-console.log('Server is listening on port 8080');

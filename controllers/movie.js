@@ -1,11 +1,11 @@
-const Movies = require('../models/movie');
+const Movie = require('../models/movie');
 
 module.exports = {
-    getIndex: async (req, res) => {
+    getMoviePage: async (req, res) => {
         try {
-            const movie = (await Movies.find({})).splice(0, 2)
-            // console.log(movie);
-            res.render("pages/movie.ejs", {movies: movie});
+            const movies = await Movie.find({}, { plot: 1, title: 1, poster: 1, _id: 0,}).limit(4);
+            
+            res.render("pages/movies.ejs", {data: movies});
         } catch (err) {
             console.log(err);
         }

@@ -1,7 +1,7 @@
 module.exports = {
-    getSigninPage: async (req, res) => {
+    getLoginPage: async (req, res) => {
         try {
-            res.render("pages/signin.ejs");
+            res.render("pages/login.ejs");
         } catch (err) {
             console.log(err);
         }

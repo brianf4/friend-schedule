@@ -1,5 +1,5 @@
 module.exports = {
-    getSignupPage: async (req, res) => {
+    getSignupPage: (req, res) => {
         try {
             res.render("pages/signup.ejs");
         } catch (err) {

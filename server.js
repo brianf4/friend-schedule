@@ -6,7 +6,7 @@ const passport = require('passport');
 const session = require('express-session');
 const flash = require('express-flash');
 const mongoose = require("mongoose");
-const MongoStore = require("connect-mongo")(session);
+const MongoStore = require("connect-mongo");
 
 
 // connect to DB
@@ -31,12 +31,11 @@ app.use(
     secret: process.env.SECRET,
     resave: false,
     saveUninitialized: false,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    store: MongoStore.create({ mongoUrl: process.env.DB_STRING }),
   })
 );
 
 app.use(passport.initialize());
-app.use(passport.session());
 
 // routes for which the server is listening
 app.use("/", mainRoutes);

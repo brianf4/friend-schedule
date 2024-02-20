@@ -36,12 +36,7 @@ module.exports = {
             if (err) {
               return next(err);
             }
-            req.logIn(user, (err) => {
-              if (err) {
-                return next(err);
-              }
-              res.redirect("/");
-            });
+            res.redirect("/");
           });
         }
       );

@@ -21,14 +21,15 @@ module.exports = {
       });
 
       const existingUser = await User.findOne(
-        { $or: [{ email: req.body.email }, { userName: req.body.userName }]},
+        $filter = [{ email: req.body.email }, { userName: req.body.userName }],
+        // { $or: [{ email: req.body.email }, { userName: req.body.userName }]},
       );
 
       if (existingUser) {
         req.flash("errors", {
           msg: "Account with that email address or username already exists.",
         });
-        return res.redirect("../signup");
+        return res.redirect("/signup");
       }else {
         user.save((err) => {
           if (err) {

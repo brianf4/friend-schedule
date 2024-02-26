@@ -10,43 +10,36 @@ module.exports = {
     }
   },
 
-  postSignup: async (req, res) => {
+  postSignup: async (req, res, next) => {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
-      await User.create({
+      const user = new User({
         userName: req.body.userName,
         email: req.body.email,
         password: hashedPassword,
       });
 
-      res.redirect("/");
+      const existingUser = await User.findOne(
+        { $or: [{ email: req.body.email }, { userName: req.body.userName }]},
+      );
 
-    //   User.findOne(
-    //     { $or: [{ email: req.body.email }, { userName: req.body.userName }] },
-    //     (err, existingUser) => {
-    //       if (err) {
-    //         return next(err);
-    //       }
-    //       if (existingUser) {
-    //         req.flash("errors", {
-    //           msg: "Account with that email address or username already exists.",
-    //         });
-    //         return res.redirect("../signup");
-    //       }
-    //       user.save((err) => {
-    //         if (err) {
-    //           return next(err);
-    //         }
-    //         req.logIn(user, (err) => {
-    //           if (err) {
-    //             return next(err);
-    //           }
-    //           res.redirect("/");
-    //         });
-    //       });
-    //     }
-    //   );
-    } catch (err) {}
+      if (existingUser) {
+        req.flash("errors", {
+          msg: "Account with that email address or username already exists.",
+        });
+        return res.redirect("../signup");
+      }else {
+        user.save((err) => {
+          if (err) {
+            return next(err)
+          }
+          res.redirect('/login')
+        })
+      }
+
+    } catch (err) {
+      console.log(err)
+    }
   },
 };

@@ -14,6 +14,10 @@
 
     <main>
         <h1>Sign up!</h1>
+        <% if (locals.messages.errors) { %>
+            <p> <%= messages.errors[0].msg %></p>
+        <% } %>
+
         <form method="post">
             <section>
                 <label>Email</label>

@@ -21,8 +21,9 @@ module.exports = {
       });
 
       const existingUser = await User.findOne(
-        $filter = [{ email: req.body.email }, { userName: req.body.userName }],
-        // { $or: [{ email: req.body.email }, { userName: req.body.userName }]},
+        {
+          $or: [{ email: req.body.email }, { userName: req.body.userName }]
+        },
       );
 
       if (existingUser) {
@@ -31,12 +32,8 @@ module.exports = {
         });
         return res.redirect("/signup");
       }else {
-        user.save((err) => {
-          if (err) {
-            return next(err)
-          }
-          res.redirect('/login')
-        })
+        await user.save()
+        res.redirect('/login')
       }
 
     } catch (err) {

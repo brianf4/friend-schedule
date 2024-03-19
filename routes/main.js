@@ -8,7 +8,7 @@ router.get('/signup', mainController.getSignupPage);
 router.post('/signup', mainController.postSignup);
 router.get('/login', mainController.getLoginPage);
 router.post('/login', mainController.postLogin);
-router.get('/profile', ensureAuth, mainController.getProfile)
+router.get('/profile', ensureAuth, mainController.getProfile);
 
 
 module.exports = router;

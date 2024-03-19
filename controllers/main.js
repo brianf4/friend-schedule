@@ -31,6 +31,10 @@ module.exports = {
   postSignup: async (req, res, next) => {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);
+      
+      req.body.email = validator.normalizeEmail(req.body.email, {
+        gmail_remove_dots: false,
+      });
 
       const user = new User({
         userName: req.body.userName,
@@ -66,8 +70,10 @@ module.exports = {
       console.log(err);
     }
   },
-  postLogin: (req, res) => {
+
+  postLogin: (req, res, next) => {
     const validationErrors = [];
+
     if (!validator.isEmail(req.body.email))
       validationErrors.push({ msg: "Please enter a valid email address." });
 
@@ -76,27 +82,32 @@ module.exports = {
 
     if (validationErrors.length) {
       req.flash("errors", validationErrors);
+      console.log({ validationErrors });
       return res.redirect("/login");
     }
-
+    console.log('84', req.body.email);
     req.body.email = validator.normalizeEmail(req.body.email, {
       gmail_remove_dots: false,
     });
 
     passport.authenticate("local", (err, user, info) => {
       if (err) {
+        console.log('91');
         return next(err);
       }
       if (!user) {
         req.flash("errors", info);
+        console.log('95', req.body.email);
         return res.redirect("/login");
       }
+      console.log('97');
       req.logIn(user, (err) => {
         if (err) {
           return next(err);
         }
         req.flash("success", { msg: "Success! You are logged in." });
-        res.redirect(req.session.returnTo || "pages/profile.ejs");
+        
+        res.redirect(req.session.returnTo || "/profile");
       });
     })(req, res, next);
   }

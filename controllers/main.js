@@ -28,6 +28,13 @@ module.exports = {
     }
   },
 
+  logout: (req, res) => {
+    req.logout(function(err) {
+      if (err) { return next(err); }
+      res.redirect('/');
+    });
+  },
+
   postSignup: async (req, res, next) => {
     try {
       const hashedPassword = await bcrypt.hash(req.body.password, 10);

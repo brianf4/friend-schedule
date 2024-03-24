@@ -7,7 +7,6 @@ module.exports = function (passport) {
 
       try {
         const user = await User.findOne({ email: email });
-        console.log('10');
         if (!user) {
           return done(null, false, { msg: `Email ${email} not found.` });
         }
@@ -24,7 +23,6 @@ module.exports = function (passport) {
             return done(err);
           }
           if (isMatch) {
-            console.log('27');
             return done(null, user);
           }
           return done(null, false, { msg: "Invalid email or password." });
@@ -46,10 +44,8 @@ module.exports = function (passport) {
   passport.deserializeUser( async (id, done) => {
     try {
       const userId = await User.findById(id) 
-      
+
       done(null, userId)
-      
-      //, (err, user) => done(err, user));
     } catch (error) {
       done(error, null);
       console.log(error);

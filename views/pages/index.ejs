@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
     <%- include('../partials/head'); %>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/vanjs-org/van/public/van-1.5.0.nomodule.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vanjs-ext@0.4.0/dist/van-x.nomodule.min.js"></script>
+
   </head>
 <body class="container">
   
@@ -11,9 +14,12 @@
   </header>
 
   <main>
-    <div class="jumbotron">
-      <h1>This is great</h1>
+    <div>
+      <h1 class="text-red-600">This is great</h1>
       <p>This is on the index home page</p>
+    </div>
+    <div id="mainContainer">
+
     </div>
   </main>
 
@@ -21,5 +27,6 @@
   <%- include('../partials/footer'); %>
 </footer>
 
-</body>
+<script type="text/javascript" src="scripts/index.js"></script>
+<body>
 </html>

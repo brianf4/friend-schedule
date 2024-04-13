@@ -14,7 +14,7 @@ module.exports = {
 
   getProfile: async (req, res) => {
     try {
-      res.render("pages/profile.ejs")
+      res.render("pages/profile.ejs", { user: req.user })
     } catch (err) {
       console.log(err)
     }
@@ -92,22 +92,18 @@ module.exports = {
       console.log({ validationErrors });
       return res.redirect("/login");
     }
-    console.log('84', req.body.email);
     req.body.email = validator.normalizeEmail(req.body.email, {
       gmail_remove_dots: false,
     });
 
     passport.authenticate("local", (err, user, info) => {
       if (err) {
-        console.log('91');
         return next(err);
       }
       if (!user) {
         req.flash("errors", info);
-        console.log('95', req.body.email);
         return res.redirect("/login");
       }
-      console.log('97');
       req.logIn(user, (err) => {
         if (err) {
           return next(err);

@@ -4,7 +4,7 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "dev": "nodemon server.js",
+    "dev": "nodemon -L server.js -e ejs",
     "tailwind": "npx tailwindcss -i ./public/styles/input.css -o ./public/styles/output.css --watch"
   },
   "author": "",
@@ -18,13 +18,13 @@
     "express-flash": "^0.0.2",
     "express-session": "^1.18.0",
     "mongoose": "^8.1.2",
+    "nodemon": "^3.1.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "validator": "^13.11.0"
   },
   "devDependencies": {
     "daisyui": "^4.10.1",
-    "nodemon": "^3.0.3",
     "tailwindcss": "^3.4.1"
   }
 }

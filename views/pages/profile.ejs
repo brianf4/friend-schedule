@@ -10,22 +10,23 @@
                 <h1>Welcome to your Profile</h1>
                 <p>Hello, <%-user.email %></p>
             </div>
-            <!-- Open the modal using ID.showModal() method -->
-            <button class="btn" onclick="my_modal_1.showModal()">
-                +
-            </button>
-            <dialog id="my_modal_1" class="modal">
-                <div class="modal-box">
-                    <h3 class="font-bold text-lg">Title of Sheet?</h3>
-                    <input type="text" name="" id="">
-                    <div class="modal-action">
-                        <form method="dialog">
-                            <!-- if there is a button in form, it will close the modal -->
-                            <button class="btn">Close</button>
-                        </form>
-                    </div>
+
+            <!-- You can open the modal using ID.showModal() method -->
+            <button class="btn" onclick="sheet_modal.showModal()"> + </button>
+            <dialog id="sheet_modal" class="modal">
+                <div class="modal-box flex flex-col">
+                    <form method="dialog">
+                        <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+                    </form>
+                    <h3 class="font-bold text-lg">Title of sheet?</h3>
+                    <form class="flex flex-col">
+                        <input type="text" placeholder="Type here" class="input input-bordered w-full max-w-xs" required />
+                        <button class="self-end btn btn-secondary" type="submit">Submit</button>
+                    </form>
+
                 </div>
             </dialog>
+
             <a class="underline text-red-500" href="/logout">Logout</a>
         </main>
 

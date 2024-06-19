@@ -80,18 +80,20 @@ module.exports = {
 
   postLogin: (req, res, next) => {
     const validationErrors = [];
-
-    if (!validator.isEmail(req.body.email))
+    if (!validator.isEmail(req.body.email)) {
       validationErrors.push({ msg: "Please enter a valid email." });
+    }
 
-    if (validator.isEmpty(req.body.password))
+    if (validator.isEmpty(req.body.password)) {
       validationErrors.push({ msg: "Password cannot be blank." });
+    }
 
     if (validationErrors.length) {
       req.flash("errors", validationErrors);
       console.log({ validationErrors });
       return res.redirect("/login");
     }
+
     req.body.email = validator.normalizeEmail(req.body.email, {
       gmail_remove_dots: false,
     });
@@ -100,10 +102,12 @@ module.exports = {
       if (err) {
         return next(err);
       }
+
       if (!user) {
         req.flash("errors", info);
         return res.redirect("/login");
       }
+
       req.logIn(user, (err) => {
         if (err) {
           return next(err);

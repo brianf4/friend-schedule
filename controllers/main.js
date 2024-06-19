@@ -1,5 +1,5 @@
 const User = require("../models/User");
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const passport = require("passport");
 const validator = require("validator");
 
@@ -42,7 +42,7 @@ module.exports = {
       req.body.email = validator.normalizeEmail(req.body.email, {
         gmail_remove_dots: false,
       });
-
+      console.log(req.body);
       const user = new User({
         userName: req.body.userName,
         email: req.body.email,

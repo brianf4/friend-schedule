@@ -10,6 +10,7 @@ module.exports = {
         if (!req.isAuthenticated()) {
             return next();
         }
-        res.redirect('/dashboard');
+        // I think redirect to profile is ok if not go to /dashboard
+        res.redirect('/profile');
     }
 };
